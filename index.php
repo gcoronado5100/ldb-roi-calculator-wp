@@ -4,7 +4,7 @@
  * Plugin Name: ROI Calculator
  * Plugin URI: http://gabecode.com
  * Description: a Simple block that contains a ROI Calculator, custom made (with love <3 ) by Your Dev Apps Manager Gabriel. Use the shortcode [ldb-roi-calculator] in the page you want to display the block
- * Version: 1.0
+ * Version: 1.0.5
  * Requires at least: 5.2
  * Requires PHP: 7.2
  * Author: Gabriel Coronado
