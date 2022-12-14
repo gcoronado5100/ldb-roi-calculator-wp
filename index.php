@@ -8,8 +8,8 @@
  * Requires at least: 5.2
  * Requires PHP: 7.2
  * Author: Gabriel Coronado
- * Author URI: http://gabecode.com
- * Text Domain: gabecode-plus
+ * Author URI: https://github.com/gcoronado5100/ldb-roi-calculator-wp
+ * Text Domain: ldb-roi-calc
  * Domain Path: /languages
  */
 
