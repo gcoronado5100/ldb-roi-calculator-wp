@@ -1,5 +1,4 @@
 // Formater methods
-
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -8,21 +7,6 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 const formatter2 = new Intl.NumberFormat('en-US');
 
-
-// Variables
-let industry = document.querySelector('#industrySelector').value
-
-let dealSize = document.querySelector('#dealSize').value
-document.querySelector('#dealSizeLabel').innerHTML = formatter.format(dealSize)
-
-let prospects = document.querySelector('#prospects').value
-document.querySelector('#prospectsLabel').innerHTML = formatter2.format(prospects)
-
-let ratioLDB = document.querySelector('#ratioLDB').value
-ratioLabel = document.querySelector('#ratioLabel').innerHTML = `${ratioLDB} %`
-
-
-// Event listener
 
 //Styles for the range fields
 const onChangeRange = (target) => {
@@ -33,49 +17,90 @@ const onChangeRange = (target) => {
     target.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%'
 }
 
-// Intialize the styles for the input fields type "Range"
-onChangeRange(document.querySelector('#dealSize'))
-onChangeRange(document.querySelector('#prospects'))
-onChangeRange(document.querySelector('#ratioLDB'))
 
+//Initial Values 
+let industryValue = document.querySelector('.industrySelector').value
+let dealSizeValue = document.querySelector('.dealSize').value
+let prospectsValue = document.querySelector('.prospects').value
+let ratioLDBValue = document.querySelector('.ratioLDB').value
+let approximate 
+let price 
+let spents 
+let roiValue
+
+// Create multiples Instances
+let allCalculators = document.querySelectorAll('.calculator__container');
+
+
+/**
+ * Methods
+ */
+
+const calculatorLDB = () =>{
+    approximate = Math.round(prospectsValue * (industryValue / 1000))
+    price = Math.round(approximate * (ratioLDBValue / 100) * dealSizeValue * 12)
+    spents = prospectsValue * 3 * 12
+    roiValue = Math.round(((price - spents) / spents * 100))
+}
+
+// Update values to all instances
+const updateCalculations = (item) => {
+    // Variables for each instance - Labels
+    let dealSizeLabel = item.querySelector('.dealSizeLabel')
+    let prospectsLabel = item.querySelector('.prospectsLabel')
+    let ratioLabel = item.querySelector('.ratioLabel')
+    let ldbPrice = item.querySelector('.ldbPrice')
+    let ldbApproximate = item.querySelector('.ldbApproximate')
+    let ldbROI = item.querySelector('.ldbROI')
+
+    calculatorLDB()
+
+    dealSizeLabel.innerHTML = dealSizeValue
+    prospectsLabel.innerHTML = prospectsValue
+    ratioLabel.innerHTML = ratioLDBValue   
+    ldbPrice.innerHTML = price
+    ldbApproximate.innerHTML = approximate
+    ldbROI.innerHTML = roiValue 
+}
+
+allCalculators.forEach( calculator => updateCalculations(calculator) )
 
 
 const onChangeIndustry = (e) => {
-    industry = document.querySelector('#industrySelector').value
-    calculatorLDB()
+    industryValue = e.target.value
+    allCalculators.forEach( calculator => {
+        calculator.querySelector('#industrySelector').value = industryValue
+        updateCalculations(calculator)
+    })
 }
 
 const onDealSizeChange = (e) => {
-    dealSize = document.querySelector('#dealSize').value
-    document.querySelector('#dealSizeLabel').innerHTML = formatter.format(dealSize)
-    onChangeRange(document.querySelector('#dealSize'))
-    calculatorLDB()
+    dealSizeValue = e.target.value
+    // onChangeRange(e.target)
+    allCalculators.forEach( calculator => {
+        calculator.querySelector('.dealSize').value = dealSizeValue
+        updateCalculations(calculator)
+        onChangeRange(calculator.querySelector('.ratioLDB'))
+    })
+
 }
 
 const onProspectsChange = (e) => {
-    prospects = document.querySelector('#prospects').value
-    document.querySelector('#prospectsLabel').innerHTML = formatter2.format(prospects)
-    onChangeRange(document.querySelector('#prospects'))
-    calculatorLDB()
+    prospectsValue = e.target.value
+    allCalculators.forEach( calculator => {
+        calculator.querySelector('.prospects').value = prospectsValue
+        updateCalculations(calculator)
+        onChangeRange(calculator.querySelector('.ratioLDB'))
+    })
 }
 
 const onRatioChange = (e) => {
-    ratioLDB = document.querySelector('#ratioLDB').value
-    ratioLabel = document.querySelector('#ratioLabel').innerHTML = `${ratioLDB} %`
-    onChangeRange(document.querySelector('#ratioLDB'))  
-    calculatorLDB()
+    ratioLDBValue = e.target.value
+    allCalculators.forEach( calculator => {
+        calculator.querySelector('.ratioLDB').value = ratioLDBValue
+        updateCalculations(calculator)
+        onChangeRange(calculator.querySelector('.ratioLDB'))
+    })  
 }
 
-const calculatorLDB = () =>{
-    const approximate = Math.round(prospects * (industry / 1000))
-    document.querySelector('#ldbApproximate').innerHTML = approximate
-    const price = Math.round(approximate * (ratioLDB / 100) * dealSize * 12)
-    document.querySelector('#ldbPrice').innerHTML = `${formatter.format(price)}/year`
-    const spents = prospects * 3 * 12
-
-    const roiValue = Math.round(((price - spents) / spents * 100))
-    document.querySelector('#ldbROI').innerHTML = roiValue
-}
-
-calculatorLDB()
 

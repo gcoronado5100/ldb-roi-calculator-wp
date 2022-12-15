@@ -21,6 +21,7 @@ if (!function_exists('add_action')) {
 
 // Setup
 define('LDB_ROI_CALC_PATH', plugin_dir_path(__FILE__));
+define('LDB_ROI_CALC_DIR', plugin_dir_url(__FILE__));
 
 // Includes
 include(LDB_ROI_CALC_PATH . 'includes/front/enqueue.php');

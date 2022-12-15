@@ -36,7 +36,7 @@ function ldb_roi_calculator_template()
                     <fieldset>
                         <h4>Your industry</h4>
                         <span>Choose your industry, or pick Average if you can't find it.</span>
-                        <select name="industrySelector" id="industrySelector" onchange=onChangeIndustry()>
+                        <select class="industrySelector" name="industrySelector" id="industrySelector" onchange=onChangeIndustry(event)>
                             <?php foreach ($industries as $industry) : ?>
                                 <option key="<?= $industry['slug'] ?>" value="<?= $industry['value'] ?>"><?= $industry['name'] ?></option>
                             <?php endforeach; ?>
@@ -45,20 +45,20 @@ function ldb_roi_calculator_template()
                     <fieldset>
                         <h4>Average Deal Size, $</h4>
                         <span>Choose the average size of your deals.</span>
-                        <label id="dealSizeLabel">label</label>
-                        <input type="range" name="dealSize" id="dealSize" min=1000 max=100000 step=1000 value=1000 oninput=onDealSizeChange() />
+                        <label class="dealSizeLabel" id="dealSizeLabel">label</label>
+                        <input class="dealSize" type="range" name="dealSize" id="dealSize" min=1000 max=100000 step=1000 value=1000 oninput=onDealSizeChange(event) />
                     </fieldset>
                     <fieldset>
                         <h4>Number of B2B/B2C prospects</h4>
                         <span>Choose the number of prospects you want to engage each month.</span>
-                        <label id="prospectsLabel">{formatter2.format(prospects)}</label>
-                        <input name="prospects" id="prospects" type="range" min=850 max=4500 step=50 value=850 oninput=onProspectsChange() />
+                        <label class="prospectsLabel" id="prospectsLabel">{formatter2.format(prospects)}</label>
+                        <input class="prospects" name="prospects" id="prospects" type="range" min=850 max=4500 step=50 value=850 oninput=onProspectsChange(event) />
                     </fieldset>
                     <fieldset>
                         <h4>Close Ratio (after appointment) %</h4>
                         <span>To calculate this number, divide the number of sales you made by the number of quotes you sent out.</span>
-                        <label id="ratioLabel">label</label>
-                        <input type="range" name="ratioLDB" id="ratioLDB" min=10 max=100 step=10 value=10 oninput=onRatioChange() />
+                        <label class="ratioLabel" id="ratioLabel">label</label>
+                        <input class="ratioLDB" type="range" name="ratioLDB" id="ratioLDB" min=10 max=100 step=10 value=10 oninput=onRatioChange(event) />
                     </fieldset>
                 </div>
 
@@ -69,16 +69,16 @@ function ldb_roi_calculator_template()
 
 
                     <div class="result-box">
-                        <span class="result" id="ldbPrice">{formatter.format(price)}/year</span>
+                        <span class="result ldbPrice" id="ldbPrice">{formatter.format(price)}/year</span>
                     </div>
 
                     <div class="result-row">
                         <div class="result-box">
-                            <span class="result" id="ldbApproximate">{approximate}</span>
+                            <span class="result ldbApproximate" id="ldbApproximate">{approximate}</span>
                             <span>Approx. number of appointment booked / monthly</span>
                         </div>
                         <div class="result-box">
-                            <span class="result" id="ldbROI">{roiValue}%</span>
+                            <span class="result ldbROI" id="ldbROI">{roiValue}%</span>
                             <span>Return on marketing investment</span>
                         </div>
                     </div>
